@@ -1,6 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import LoginForm from './forms/LoginForm';
 
 const Login= (props) => {
 
@@ -34,7 +35,7 @@ const Login= (props) => {
                 if (response.data.logged_in){
                     console.log("Iniciada sesion")
                     props.handleSuccesfullAuth(response.data)
-                    navigate(-1)
+                    navigate("/home")
                             }
             })
             .catch(error => {
@@ -46,28 +47,19 @@ const Login= (props) => {
         }
 
           return ( 
-            <div>
-                <form onSubmit={handleSubmit}>
+            <div className="container login_container">
+                
+                <div className="row">
+                    <div className="col-3"></div>
+                    <div className="col-6 login_container_row_col">
+                        <h1>Ingresar</h1>
+                        <LoginForm   user={user} handleSubmit={handleSubmit} handleChange={handleChange}/>
+                    </div>
+                    <div className="col-3"></div>
+                    
+                </div>
 
-                    <input type="email" 
-                        name="email"
-                        placeholder="Email"
-                        value={user.email || ""} 
-                        onChange={handleChange} 
-                        required 
-                    />
-
-                    <input type="password" 
-                        name="password"
-                        placeholder="Password"
-                        value={user.password || ""} 
-                        onChange={handleChange} 
-                        required 
-                    />
-
-
-                    <button type="submit">Registration</button>
-                </form>
+                
             </div>
          );
 

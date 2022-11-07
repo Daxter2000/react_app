@@ -1,3 +1,4 @@
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -7,7 +8,23 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.app_container{
+  margin: 20px;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+.login_container{
+  align-items: center;
+  height: 300px;
+
+}
+
+.login_container_row_col {
+  padding-top: 20px;
+}
+

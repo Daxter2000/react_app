@@ -1,7 +1,7 @@
-import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NewCompany from './company/NewCompany';
+import Clients from './clients/Clients';
 
 
 
@@ -12,28 +12,22 @@ const  Home = (props) => {
     },[])
 
     const navigate = useNavigate()
-
-
-    const handleLoggedOut = () => {
-        axios.delete("http://localhost:3001/logout", {withCredentials:true}).then(
-        props.handleLoggedOut()
-        ).catch(e => {
-            console.log("errors", e)
-        })
+    
+    const handleNewCompany = () => {
+        navigate("/dashboard")
     }
         return (
         <div>
             <div>
-                <h1>Home component</h1>
-                <h1>Status: {props.userStatus}</h1>
+
                 {
                     props.userStatus === "LOGGED_IN" ?
                      <div>
-                        <button onClick={()=> handleLoggedOut()}> Cerrar sesion</button> 
+                        
                         {props.company === "" ? 
-                            <NewCompany />
+                            <NewCompany  handleNewCompany={handleNewCompany}/>
                         :
-                        <div> YA TIENE UNA COMPANIA</div>
+                        <Clients />
                         }
                      </div>                     
                      :
