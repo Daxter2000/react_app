@@ -16,6 +16,9 @@ const NewCompany = (props) => {
         setCompany(Object.assign({},company, {[e.target.name]: e.target.value}))
     }
 
+    const handleNewCompany = () => {
+        navigate("/home")
+    }
     const handleSubmit=(e) => {
         axios.post("http://localhost:3001/company/create", 
             {
@@ -31,7 +34,9 @@ const NewCompany = (props) => {
             console.log(response)
             console.log(response.data.status)
             if(response.data.status === 'created'){
-                navigate("/home")
+                console.log("si dice created")
+                handleNewCompany()
+                
             }
         }).catch(e => {
             console.log("error en la creacion de company", e)
