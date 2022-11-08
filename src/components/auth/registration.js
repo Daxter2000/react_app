@@ -1,6 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import RegistrationForm from './forms/RegistrationForm';
 
 const Registration= (props) => {
 
@@ -47,35 +48,19 @@ const Registration= (props) => {
         }
 
           return ( 
-            <div>
-                <form onSubmit={handleSubmit}>
+            <div className="container login_container">
+                
+                <div className="row">
+                    <div className="col-3"></div>
+                    <div className="col-6 login_container_row_col">
+                        <h1>Registrarse</h1>
+                        <RegistrationForm   user={user} handleSubmit={handleSubmit} handleChange={handleChange}/>
+                    </div>
+                    <div className="col-3"></div>
+                    
+                </div>
 
-                    <input type="email" 
-                        name="email"
-                        placeholder="Email"
-                        value={user.email || ""} 
-                        onChange={handleChange} 
-                        required 
-                    />
-
-                    <input type="password" 
-                        name="password"
-                        placeholder="Password"
-                        value={user.password || ""} 
-                        onChange={handleChange} 
-                        required 
-                    />
-
-                    <input type="password" 
-                        name="password_confirmation"
-                        placeholder="Password confirmation"
-                        value={user.password_confirmation || ""} 
-                        onChange={handleChange} 
-                        required 
-                    />
-
-                    <button type="submit">Registration</button>
-                </form>
+                
             </div>
          );
 

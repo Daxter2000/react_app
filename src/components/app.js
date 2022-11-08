@@ -6,7 +6,8 @@ import Home from './Home';
 import Login from './auth/Login';
 import Registration from './auth/registration';
 import Header from './general/Header';
-
+import { Navigate } from 'react-router-dom';
+import Clients from './clients/Clients';
 
 export default class App extends Component {
   constructor() {  super()
@@ -49,7 +50,7 @@ export default class App extends Component {
   }
 
   checkCompany(){
-    axios.get("http://localhost:3001/company/get", {withCredentials:true})
+    axios.get("http://localhost:3001/companies/get", {withCredentials:true})
       .then(response => {
         if(response.data.company === true) {
           this.setState({company: response.data.response.data[0].attributes})
@@ -76,7 +77,8 @@ export default class App extends Component {
       status:"NOT_LOGGED_IN",
       user: {},
       company: ""
-    })
+    });
+    <Navigate to="/home" replace={true}/>
   }
 
 
@@ -85,24 +87,27 @@ export default class App extends Component {
   render() {
     return (
       <div className='app'>
-        <Header/>
-        <Router>
-          <Routes>
-            <Route path="*" element={<Login handleSuccesfullAuth={this.handleLogin}/>}/>
-            <Route path="/sign_in" element={<Registration handleSuccesfullAuth={this.handleLogin} />}/>
-            <Route path="/dashboard" element={<Dashboard status={this.state.status}/>}/>
-            <Route path="/login" element={<Login handleSuccesfullAuth={this.handleLogin}/>}/>
-            <Route path="/home" element={
-              <Home 
-              userStatus={this.state.status} 
-              handleLoggedOut={this.handleLoggedOut}  
-              checkCompany ={this.checkCompany}
-              company ={this.state.company}
-              />}
-            />
+        <Header status={this.state.status} handleLoggedOut={this.handleLoggedOut} />
+        <div className="app_container">
 
-          </Routes>
-        </Router>
+            <Routes>
+              <Route path="*" element={<Login handleSuccesfullAuth={this.handleLogin}/>}/>
+              <Route path="/sign_in" element={<Registration handleSuccesfullAuth={this.handleLogin} />}/>
+              <Route path="/dashboard" element={<Clients status={this.state.status}/>}/>
+              <Route path="/login" element={<Login handleSuccesfullAuth={this.handleLogin}/>}/>
+              <Route path="/home" element={
+                <Home 
+                userStatus={this.state.status} 
+                handleLoggedOut={this.handleLoggedOut}  
+                checkCompany ={this.checkCompany}
+                company ={this.state.company}
+                />}
+              />
+
+            </Routes>
+
+        </div>
+       
 
       </div>
     );

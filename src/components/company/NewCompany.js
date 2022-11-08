@@ -1,10 +1,9 @@
 import React, {useState, useEffect} from "react"
 import axios from "axios"
-import { useNavigate } from "react-router-dom"
+import NewCompanyForm from "./forms/NewCompanyForm"
 
 
 const NewCompany = (props) => {
-    const navigate = useNavigate()
     const [company, setCompany] = useState({})
 
     useEffect(() => {
@@ -20,7 +19,7 @@ const NewCompany = (props) => {
         navigate("/home")
     }
     const handleSubmit=(e) => {
-        axios.post("http://localhost:3001/company/create", 
+        axios.post("http://localhost:3001/companies/create", 
             {
                 company: 
                     {
@@ -34,9 +33,7 @@ const NewCompany = (props) => {
             console.log(response)
             console.log(response.data.status)
             if(response.data.status === 'created'){
-                console.log("si dice created")
-                handleNewCompany()
-                
+                props.handleNewCompany()
             }
         }).catch(e => {
             console.log("error en la creacion de company", e)
@@ -45,36 +42,22 @@ const NewCompany = (props) => {
     }
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
 
-                <input type="text" 
-                    name="name"
-                    placeholder="Company name"
-                    value={company.name || ""} 
-                    onChange={handleChange} 
-                    required 
-                />
-
-                <input type="text" 
-                    name="RFC"
-                    placeholder="RFC"
-                    value={company.RFC || ""} 
-                    onChange={handleChange} 
-                     
-                />
+        <div className="container login_container">
                 
-                <input type="text" 
-                    name="address"
-                    placeholder="Address"
-                    value={company.address || ""} 
-                    onChange={handleChange} 
-                    required 
-                />
+            <div className="row">
+                <div className="col-3"></div>
+                <div className="col-6 login_container_row_col">
+                    <h1>Crear nueva compañia</h1>
+                    <NewCompanyForm  company={company} handleChange={handleChange} handleSubmit={handleSubmit} />
+                </div>
+                <div className="col-3"></div>
+                
+            </div>
 
-                <button type="submit">Registrar company</button>
-            </form>
+        
         </div>
+
          );
 }
 
